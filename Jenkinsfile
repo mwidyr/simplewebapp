@@ -29,13 +29,14 @@ pipeline {
             steps {
                 sh 'git pull'
                 sh 'git branch'
-                sh 'git checkout '+params.pr_number
-                sh 'git branch'
-                failure {
-                    echo 'This will run only if failed'
+                try{
+                    sh 'git checkout '+params.pr_number
+                } catch (err){
+                    echo 'fail'
                     currentBuild.result = 'ABORTED'
                     error('Stopping Checkout stage…')
                 }
+                sh 'git branch'
             }
         }
 
@@ -47,9 +48,10 @@ pipeline {
 
         stage ('Build Binary Test') {
             steps {
-                sh 'mvn clean compile'
-                failure {
-                    echo 'This will run only if failed'
+                try{
+                    sh 'mvn clean compile'
+                } catch (err){
+                    echo 'fail'
                     currentBuild.result = 'ABORTED'
                     error('Stopping Build Binary Test stage…')
                 }
@@ -58,9 +60,10 @@ pipeline {
 
         stage ('Initiate Test') {
             steps {
-                sh 'mvn test'
-                failure {
-                    echo 'This will run only if failed'
+                try{
+                    sh 'mvn test'
+                } catch (err){
+                    echo 'fail'
                     currentBuild.result = 'ABORTED'
                     error('Stopping Initiate Test stage…')
                 }
@@ -70,15 +73,16 @@ pipeline {
 
         stage ('Merge') {
             steps {
-                sh 'git branch'
-                sh 'git checkout master'
-                sh 'git branch'
-                sh 'git merge '+param.pr_number
-                sh 'git push origin master'
-                failure {
-                    echo 'This will run only if failed'
+                try{
+                    sh 'git branch'
+                    sh 'git checkout master'
+                    sh 'git branch'
+                    sh 'git merge '+param.pr_number
+                    sh 'git push origin master'
+                } catch (err){
+                    echo 'fail'
                     currentBuild.result = 'ABORTED'
-                    error('Stopping Merge stage…')
+                    error('Stopping Build Binary Test stage…')
                 }
             }
         }
