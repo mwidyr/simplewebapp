@@ -14,6 +14,13 @@ pipeline {
             }
         }
 
+        stage ('Initialize Param') {
+            steps {
+                sh 'echo ' + params
+                sh 'echo ' + params.pr_number
+            }
+        }
+
         stage ('Build Testing') {
             steps {
                 sh 'mvn clean compile'
