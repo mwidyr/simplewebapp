@@ -1,32 +1,23 @@
-pipeline{
+pipeline {
     agent any
-
+    tools {
+        maven 'maven_home'
+        jdk 'JDK1.8.0_231'
+    }
     stages {
-        stage('Compile Stage') {
-
-            steps{
-                withMaven(maven : 'maven_home'){
-                    sh 'mvn clean compile'
-                }
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
 
-        stage('Testing Stage') {
-
-             steps{
-                   withMaven(maven : 'maven_home'){
-                        sh 'mvn test'
-                   }
-             }
+        stage ('Build') {
+            steps {
+                echo 'This is a minimal pipeline.'
+            }
         }
-
-         stage('Deploy Stage') {
-
-              steps{
-                   withMaven(maven : 'maven_home'){
-                      sh 'mvn clean install'
-                   }
-              }
-         }
     }
 }
