@@ -42,7 +42,7 @@ pipeline {
         stage ('Deploying all') {
             steps {
                 sh '''
-                sudo systemctl stop docker
+                systemctl stop docker
                 ls ~/.jenkins/workspace/jenkins-pipeline-example/target
                 cp ~/.jenkins/workspace/jenkins-pipeline-example/target/simplewebapp-webapp.jar ~/app/web/java/simplewebapp-filejar
                 '''
