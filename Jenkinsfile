@@ -29,12 +29,14 @@ pipeline {
             steps {
                 sh 'git pull'
                 sh 'git branch'
+                script {
                 try{
                     sh 'git checkout '+params.pr_number
                 } catch (err){
                     echo 'fail'
                     currentBuild.result = 'ABORTED'
                     error('Stopping Checkout stage…')
+                }
                 }
                 sh 'git branch'
             }
@@ -48,6 +50,7 @@ pipeline {
 
         stage ('Build Binary Test') {
             steps {
+            script {
                 try{
                     sh 'mvn clean compile'
                 } catch (err){
@@ -55,11 +58,13 @@ pipeline {
                     currentBuild.result = 'ABORTED'
                     error('Stopping Build Binary Test stage…')
                 }
+                }
             }
         }
 
         stage ('Initiate Test') {
             steps {
+            script {
                 try{
                     sh 'mvn test'
                 } catch (err){
@@ -67,12 +72,14 @@ pipeline {
                     currentBuild.result = 'ABORTED'
                     error('Stopping Initiate Test stage…')
                 }
+                }
             }
         }
 
 
         stage ('Merge') {
             steps {
+            script {
                 try{
                     sh 'git branch'
                     sh 'git checkout master'
@@ -82,7 +89,8 @@ pipeline {
                 } catch (err){
                     echo 'fail'
                     currentBuild.result = 'ABORTED'
-                    error('Stopping Build Binary Test stage…')
+                    error('Stopping Merge stage…')
+                }
                 }
             }
         }
