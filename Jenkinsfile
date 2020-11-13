@@ -32,20 +32,8 @@ pipeline {
                                  usernameVariable: 'mwidyr',
                                  passwordVariable: 'tokopedia789')]){
                     sh("git clone https://github.com/mwidyr/simplewebapp.git")
-                }
-                withCredentials([usernamePassword(credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
-                                 usernameVariable: 'mwidyr',
-                                 passwordVariable: 'tokopedia789')]){
                     sh("git pull")
-                }
-                withCredentials([usernamePassword(credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
-                                 usernameVariable: 'mwidyr',
-                                 passwordVariable: 'tokopedia789')]){
                     sh("git checkout widy_1")
-                }
-                withCredentials([usernamePassword(credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
-                                 usernameVariable: 'mwidyr',
-                                 passwordVariable: 'tokopedia789')]){
                     sh("git branch")
                 }
             }
