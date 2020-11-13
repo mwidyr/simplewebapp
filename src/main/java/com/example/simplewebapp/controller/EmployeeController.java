@@ -30,6 +30,11 @@ public class EmployeeController {
         return employeeDtoList;
     }
 
+    @GetMapping(path = "/getAll2")
+    public List<EmployeeDto> getAll2() {
+        return employeeDtoList;
+    }
+
     @PostMapping(path = "/add")
     public EmployeeDto save(@RequestBody EmployeeDto employeeDto) {
         if (employeeDto == null || employeeDto.getName().trim().equalsIgnoreCase("")) {
