@@ -23,9 +23,6 @@ pipeline {
         stage ('Validation & PR Checking') {
             steps {
                 sh 'echo need_to_validate_first'
-                sh 'git clone https://github.com/mwidyr/simplewebapp.git'
-                sh 'git branch'
-                sh 'git pull'
             }
         }
 
