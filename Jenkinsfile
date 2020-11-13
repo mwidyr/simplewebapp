@@ -3,6 +3,7 @@ pipeline {
     tools {
         maven 'maven_home'
         jdk 'JDK1.8.0_231'
+        git 'Default'
     }
     stages {
         stage ('Details') {
@@ -22,6 +23,7 @@ pipeline {
         stage ('Validation & PR Checking') {
             steps {
                 sh 'echo need_to_validate_first'
+                sh 'git clone https://github.com/mwidyr/simplewebapp.git'
             }
         }
 
