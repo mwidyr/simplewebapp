@@ -27,6 +27,16 @@ pipeline {
 
         stage ('Checkout') {
             steps {
+                checkout(
+                [$class: 'GitSCM', branches: [[name: '*/master']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [],
+                submoduleCfg: [],
+                userRemoteConfigs: [
+                [credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
+                url: 'https://github.com/mwidyr/simplewebapp.git']
+                ]
+                ])
                 sh 'git pull'
                 sh 'git branch'
                 script {
