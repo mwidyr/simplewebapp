@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage ('Build') {
+        stage ('Build Testing') {
             steps {
                 sh 'mvn clean compile'
             }
@@ -29,6 +29,12 @@ pipeline {
         stage ('Deploying stage') {
             steps {
                 sh 'mvn clean install'
+            }
+        }
+
+        stage ('Move jar to service stage') {
+            steps {
+                sh 'ls ~/.jenkins/workspace/jenkins-pipeline-example'
             }
         }
     }
