@@ -31,10 +31,12 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
                                  usernameVariable: 'mwidyr',
                                  passwordVariable: 'tokopedia789')]){
-                    sh("git clone https://github.com/mwidyr/simplewebapp.git")
-                    sh("git pull")
-                    sh("git checkout widy_1")
-                    sh("git branch")
+                    sh('''
+                    git clone https://github.com/mwidyr/simplewebapp.git
+                    git pull
+                    git checkout widy_1
+                    git branch
+                    ''')
                 }
             }
         }
