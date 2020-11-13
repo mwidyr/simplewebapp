@@ -3,10 +3,9 @@ pipeline {
     tools {
         maven 'maven_home'
         jdk 'JDK1.8.0_231'
-        git 'Default'
     }
     stages {
-        stage ('Details') {
+        stage ('Initialize') {
             steps {
                 sh '''
                     echo "PATH = ${PATH}"
@@ -14,121 +13,33 @@ pipeline {
                 '''
             }
         }
-        stage ('Initialize Config') {
+
+        stage ('Initialize Param') {
             steps {
-                sh 'echo pr number or branch name ' + params.pr_number+ ' t'
+                sh 'echo ' + params
+                sh 'echo ' + params.pr_number
             }
         }
 
-        stage ('Validation & PR Checking') {
+        stage ('Build Testing') {
             steps {
-                sh 'echo need_to_validate_first'
+                sh 'mvn clean compile'
             }
         }
 
-        stage ('Checkout') {
+        stage ('Testing Stage') {
             steps {
-
-                withCredentials([usernamePassword(credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
-                                 usernameVariable: 'mwidyr',
-                                 passwordVariable: 'tokopedia789')]){
-                    sh('''
-                    git clone https://github.com/mwidyr/simplewebapp.git
-                    sleep 30s
-                    git pull
-                    sleep 30s
-                    git checkout widy_1
-                    sleep 30s
-                    git branch
-                    ''')
-                }
+                sh 'mvn test'
             }
         }
 
-        stage ('Checkout check branch') {
-            steps {
-                sh 'branch'
-            }
-        }
-
-        stage ('change lalaa') {
-            steps{
-                sh 'pull'
-                sh 'branch'
-                script {
-                try{
-                    sh 'checkout '+params.pr_number
-                } catch (err){
-                    echo 'fail'
-                    currentBuild.result = 'ABORTED'
-                    error('Stopping Checkout stage…')
-                }
-                }
-                sh 'branch'
-            }
-        }
-
-        stage ('Get Dependency') {
-            steps {
-                sh 'echo get dependency'
-            }
-        }
-
-        stage ('Build Binary Test') {
-            steps {
-            script {
-                try{
-                    sh 'mvn clean compile'
-                } catch (err){
-                    echo 'fail'
-                    currentBuild.result = 'ABORTED'
-                    error('Stopping Build Binary Test stage…')
-                }
-                }
-            }
-        }
-
-        stage ('Initiate Test') {
-            steps {
-            script {
-                try{
-                    sh 'mvn test'
-                } catch (err){
-                    echo 'fail'
-                    currentBuild.result = 'ABORTED'
-                    error('Stopping Initiate Test stage…')
-                }
-                }
-            }
-        }
-
-
-        stage ('Merge') {
-            steps {
-            script {
-                try{
-                    sh 'git branch'
-                    sh 'git checkout master'
-                    sh 'git branch'
-                    sh 'git merge '+param.pr_number
-                    sh 'git push origin master'
-                } catch (err){
-                    echo 'fail'
-                    currentBuild.result = 'ABORTED'
-                    error('Stopping Merge stage…')
-                }
-                }
-            }
-        }
-
-
-        stage ('Build Package') {
+        stage ('Build Binary') {
             steps {
                 sh 'mvn clean install'
             }
         }
 
-        stage ('Deploying All') {
+        stage ('Deploying all') {
             steps {
                 sh '''
                 ls ~/.jenkins/workspace/jenkins-pipeline-example/target
