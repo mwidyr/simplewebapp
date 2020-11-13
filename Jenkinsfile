@@ -42,24 +42,24 @@ pipeline {
 
         stage ('Checkout check branch') {
             steps {
-                sh 'git branch'
+                sh 'branch'
             }
         }
 
         stage ('change lalaa') {
             steps{
-                sh 'git pull'
-                sh 'git branch'
+                sh 'pull'
+                sh 'branch'
                 script {
                 try{
-                    sh 'git checkout '+params.pr_number
+                    sh 'checkout '+params.pr_number
                 } catch (err){
                     echo 'fail'
                     currentBuild.result = 'ABORTED'
                     error('Stopping Checkout stage…')
                 }
                 }
-                sh 'git branch'
+                sh 'branch'
             }
         }
 
