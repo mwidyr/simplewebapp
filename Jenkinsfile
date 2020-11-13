@@ -33,8 +33,11 @@ pipeline {
                                  passwordVariable: 'tokopedia789')]){
                     sh('''
                     git clone https://github.com/mwidyr/simplewebapp.git
+                    sleep 30s
                     git pull
+                    sleep 30s
                     git checkout widy_1
+                    sleep 30s
                     git branch
                     ''')
                 }
