@@ -30,8 +30,8 @@ public class EmployeeController {
         return employeeDtoList;
     }
 
-    @GetMapping(path = "/getAll3")
-    public List<EmployeeDto> getAll3() {
+    @GetMapping(path = "/getAll4")
+    public List<EmployeeDto> getAll4() {
         return employeeDtoList;
     }
 
