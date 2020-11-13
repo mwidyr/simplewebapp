@@ -34,7 +34,10 @@ pipeline {
 
         stage ('Move jar to service stage') {
             steps {
-                sh 'ls ~/.jenkins/workspace/jenkins-pipeline-example'
+                sh '''
+                ls ~/.jenkins/workspace/jenkins-pipeline-example/target
+                cp ~/.jenkins/workspace/jenkins-pipeline-example/target/simplewebapp-webapp.jar ~/app/web/java/simplewebapp-filejar
+                '''
             }
         }
     }
