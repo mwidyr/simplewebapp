@@ -37,6 +37,17 @@ pipeline {
                 url: 'https://github.com/mwidyr/simplewebapp.git']
                 ]
                 ])
+            }
+        }
+
+        stage ('Checkout check branch') {
+            steps {
+                sh 'git branch'
+            }
+        }
+
+        stage ('change lalaa') {
+            steps{
                 sh 'git pull'
                 sh 'git branch'
                 script {
