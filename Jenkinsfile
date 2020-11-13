@@ -36,7 +36,11 @@ pipeline {
                 [credentialsId: 'efdbce7e-d275-4d57-b8cc-2a2e77556a88',
                 url: 'https://github.com/mwidyr/simplewebapp.git']
                 ]
-                ])
+                ]){
+                    sh 'git pull'
+                    sh 'git branch'
+                    sh 'git checkout -b lalalallaa'
+                }
             }
         }
 
