@@ -16,7 +16,19 @@ pipeline {
 
         stage ('Build') {
             steps {
-                echo 'This is a minimal pipeline.'
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage ('Testing Stage') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage ('Deploying stage') {
+            steps {
+                sh 'mvn clean install'
             }
         }
     }
